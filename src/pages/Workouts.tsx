@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Play, Dumbbell, X, Check, History, Clock, Trash2 } from 'lucide-react';
-import { getWorkoutLogs, getExercises, createExercise, startWorkoutLog, addWorkoutSet, getWorkoutSplits, createWorkoutSplit, getExerciseHistory, deleteWorkoutLog, deleteWorkoutSet } from '../lib/api';
+import { getWorkoutLogs, getExercises, createExercise, startWorkoutLog, addWorkoutSet, getWorkoutSplits, createWorkoutSplit, getExerciseHistory, deleteWorkoutLog, deleteWorkoutSet, deleteWorkoutSplit } from '../lib/api';
 import type { WorkoutLog, Exercise, WorkoutSplit, WorkoutSet } from '../lib/api';
 import './Workouts.css';
 
@@ -129,6 +129,7 @@ const Workouts = () => {
   };
 
   const handleDeleteActiveSet = async (setId: string) => {
+    if (!window.confirm("Are you sure you want to delete this set?")) return;
     try {
       await deleteWorkoutSet(setId);
       setActiveWorkoutSets(prev => prev.filter(s => s.id !== setId));
@@ -140,11 +141,23 @@ const Workouts = () => {
   }
 
   const handleDeleteLog = async (logId: string) => {
+    if (!window.confirm("Are you sure you want to delete this workout session?")) return;
     try {
       await deleteWorkoutLog(logId);
       fetchData();
     } catch (error) {
       console.error('Error deleting workout log:', error);
+    }
+  }
+
+  const handleDeleteRoutine = async (e: React.MouseEvent, splitId: string) => {
+    e.stopPropagation();
+    if (!window.confirm("Are you sure you want to delete this routine?")) return;
+    try {
+      await deleteWorkoutSplit(splitId);
+      fetchData();
+    } catch (error) {
+      console.error('Error deleting routine:', error);
     }
   }
 
@@ -184,7 +197,14 @@ const Workouts = () => {
         </div>
         <div className="routines-grid">
           {splits.map(split => (
-            <div key={split.id} className="routine-card glass-panel" onClick={handleStartWorkout}>
+            <div key={split.id} className="routine-card glass-panel" onClick={handleStartWorkout} style={{ position: 'relative' }}>
+              <button 
+                className="delete-btn" 
+                style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', padding: '0.25rem' }} 
+                onClick={(e) => handleDeleteRoutine(e, split.id)}
+              >
+                <Trash2 size={14}/>
+              </button>
               <h4>{split.name}</h4>
               <p className="text-muted text-sm mt-1">Tap to start</p>
             </div>

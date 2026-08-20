@@ -63,6 +63,7 @@ const Nutrition = () => {
   };
 
   const handleDeleteMeal = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this meal?")) return;
     try {
       await deleteMealLog(id);
       fetchNutritionData();

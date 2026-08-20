@@ -156,6 +156,11 @@ export const createWorkoutSplit = async (name: string) => {
   return data as WorkoutSplit;
 };
 
+export const deleteWorkoutSplit = async (id: string) => {
+  const { error } = await supabase.from('workout_splits').delete().eq('id', id);
+  if (error) throw error;
+};
+
 export const getExerciseHistory = async (exercise_id: string, limit = 5) => {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('User not logged in');
