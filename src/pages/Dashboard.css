@@ -1,0 +1,108 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.progress-ring-container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-ring-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.progress-ring-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-value {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-value .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.progress-value .max {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Macro Bars */
+.macros-container {
+  padding: 1.5rem;
+}
+
+.macros-container h3 {
+  margin-bottom: 1.5rem;
+}
+
+.macro-bars-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.macro-bar-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.macro-progress-bg {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-color-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.macro-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease-out;
+}
+
+.chart-container {
+  padding: 1.5rem;
+}
+
+.chart-header {
+  margin-bottom: 1.5rem;
+}
+
+.chart-wrapper {
+  width: 100%;
+}
